@@ -56,25 +56,25 @@ export default function Projects() {
         <section
             id="work"
             ref={sectionRef}
-            className="min-h-screen py-24 px-4 md:px-12 relative z-10"
+            className="min-h-screen py-16 sm:py-20 md:py-24 px-4 sm:px-6 md:px-8 lg:px-12 relative z-10"
         >
-            <div className="mb-24">
-                <h2 className="text-6xl md:text-8xl font-bold opacity-90">
+            <div className="mb-16 sm:mb-20 md:mb-24 max-w-7xl mx-auto">
+                <h2 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold opacity-90">
                     Selected
                     <br />
                     Work
                 </h2>
-                <div className="h-1 w-24 bg-indigo-500 mt-6"></div>
+                <div className="h-1 w-16 sm:w-20 md:w-24 bg-indigo-500 mt-4 sm:mt-6"></div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-24">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 md:gap-16 lg:gap-24 max-w-7xl mx-auto">
                 {projects.map((project, index) => (
                     <div
                         key={project.id}
-                        className={`project-card group relative cursor-pointer ${index % 2 !== 0 ? 'md:mt-32' : ''
+                        className={`project-card group relative cursor-pointer ${index % 2 !== 0 ? 'lg:mt-32' : ''
                             }`}
                     >
-                        <div className="overflow-hidden rounded-lg aspect-[4/3] mb-6 relative">
+                        <div className="overflow-hidden rounded-lg aspect-[4/3] mb-4 sm:mb-6 relative">
                             <div className="absolute inset-0 bg-indigo-600/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10 mix-blend-overlay"></div>
                             <img
                                 src={project.image}
@@ -82,14 +82,14 @@ export default function Projects() {
                                 className="object-cover w-full h-full transform group-hover:scale-110 transition-transform duration-700 ease-in-out"
                             />
                         </div>
-                        <div className="flex justify-between items-end border-b border-white/20 pb-4">
-                            <div>
-                                <h3 className="text-3xl md:text-4xl font-bold group-hover:text-indigo-400 transition-colors">
+                        <div className="flex justify-between items-end border-b border-white/20 pb-3 sm:pb-4">
+                            <div className="flex-1 min-w-0 pr-4">
+                                <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold group-hover:text-indigo-400 transition-colors truncate">
                                     {project.title}
                                 </h3>
-                                <p className="text-gray-400 mt-2">{project.category}</p>
+                                <p className="text-gray-400 mt-1 sm:mt-2 text-sm sm:text-base">{project.category}</p>
                             </div>
-                            <span className="text-2xl opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-300">
+                            <span className="text-xl sm:text-2xl opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-300 flex-shrink-0">
                                 ↗
                             </span>
                         </div>

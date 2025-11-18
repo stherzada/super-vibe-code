@@ -41,13 +41,13 @@ export default function Skills() {
         <section
             id="about"
             ref={triggerRef}
-            className="py-32 overflow-hidden relative z-10 bg-black/50 backdrop-blur-sm"
+            className="py-20 sm:py-24 md:py-32 overflow-hidden relative z-10 bg-black/50 backdrop-blur-sm"
         >
-            <div className="mb-16 px-4 md:px-12 text-center">
-                <p className="text-indigo-400 uppercase tracking-widest text-sm mb-4">
+            <div className="mb-12 sm:mb-14 md:mb-16 px-4 sm:px-6 md:px-8 lg:px-12 text-center">
+                <p className="text-indigo-400 uppercase tracking-widest text-xs sm:text-sm mb-3 sm:mb-4">
                     My Stack
                 </p>
-                <h2 className="text-4xl md:text-5xl font-light leading-tight max-w-4xl mx-auto">
+                <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-light leading-tight max-w-4xl mx-auto px-4">
                     Bridging the gap between{' '}
                     <span className="text-white font-bold">design</span> and{' '}
                     <span className="text-white font-bold">engineering</span> with
@@ -58,15 +58,15 @@ export default function Skills() {
             {/* Infinite Text Marquee */}
             <div
                 ref={sliderRef}
-                className="flex whitespace-nowrap text-[10vw] md:text-[8vw] font-bold leading-none opacity-20 select-none"
+                className="flex whitespace-nowrap text-[15vw] sm:text-[12vw] md:text-[10vw] lg:text-[8vw] font-bold leading-none opacity-20 select-none"
             >
                 {skills.map((skill, i) => (
-                    <span key={i} className="mx-8 font-['Syne'] stroke-text">
+                    <span key={i} className="mx-4 sm:mx-6 md:mx-8 font-['Syne'] stroke-text">
                         {skill} •{' '}
                     </span>
                 ))}
                 {skills.map((skill, i) => (
-                    <span key={`dup-${i}`} className="mx-8 font-['Syne'] stroke-text">
+                    <span key={`dup-${i}`} className="mx-4 sm:mx-6 md:mx-8 font-['Syne'] stroke-text">
                         {skill} •{' '}
                     </span>
                 ))}

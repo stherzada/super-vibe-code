@@ -30,9 +30,13 @@ export default function Scene3D() {
         renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
         mountNode.appendChild(renderer.domElement);
 
-        // Particles
+        // Adjust particle count based on screen size for better performance
+        const isMobile = window.innerWidth < 768;
+        const isTablet = window.innerWidth >= 768 && window.innerWidth < 1024;
+
+        // Particles - reduced count on mobile/tablet
         const particlesGeometry = new THREE.BufferGeometry();
-        const particlesCount = 2000;
+        const particlesCount = isMobile ? 800 : isTablet ? 1200 : 2000;
         const posArray = new Float32Array(particlesCount * 3);
 
         for (let i = 0; i < particlesCount * 3; i++) {
@@ -44,7 +48,7 @@ export default function Scene3D() {
             new THREE.BufferAttribute(posArray, 3)
         );
         const particlesMaterial = new THREE.PointsMaterial({
-            size: 0.02,
+            size: isMobile ? 0.025 : 0.02,
             color: 0x888888,
             transparent: true,
             opacity: 0.5,
@@ -52,8 +56,8 @@ export default function Scene3D() {
         const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
         scene.add(particlesMesh);
 
-        // Main Abstract Shape (Icosahedron)
-        const geometry = new THREE.IcosahedronGeometry(1.5, 0);
+        // Main Abstract Shape - simpler geometry on mobile
+        const geometry = new THREE.IcosahedronGeometry(1.5, isMobile ? 0 : 0);
         const material = new THREE.MeshStandardMaterial({
             color: 0x1a1a1a,
             roughness: 0.1,
@@ -64,7 +68,7 @@ export default function Scene3D() {
         scene.add(mainShape);
 
         // Inner Glow Shape
-        const innerGeo = new THREE.IcosahedronGeometry(1.2, 1);
+        const innerGeo = new THREE.IcosahedronGeometry(1.2, isMobile ? 0 : 1);
         const innerMat = new THREE.MeshBasicMaterial({
             color: 0x4f46e5,
             wireframe: true,
@@ -105,9 +109,10 @@ export default function Scene3D() {
             mainShape.rotation.x += 0.002;
             innerShape.rotation.y -= 0.005;
 
-            // Mouse parallax
-            particlesMesh.rotation.y = -mouseX * 0.5;
-            particlesMesh.rotation.x = -mouseY * 0.5;
+            // Mouse parallax - reduced effect on mobile
+            const parallaxStrength = isMobile ? 0.3 : 0.5;
+            particlesMesh.rotation.y = -mouseX * parallaxStrength;
+            particlesMesh.rotation.x = -mouseY * parallaxStrength;
 
             mainShape.rotation.y += mouseX * 0.05;
             mainShape.rotation.x += mouseY * 0.05;
