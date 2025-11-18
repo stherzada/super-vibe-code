@@ -1,0 +1,60 @@
+@import "tailwindcss";
+
+@theme inline {
+  --font-sans: var(--font-space-grotesk);
+  --font-display: var(--font-syne);
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #050505;
+  color: #ffffff;
+  font-family: var(--font-space-grotesk), sans-serif;
+  overflow-x: hidden;
+}
+
+h1,
+h2,
+h3,
+.display-font {
+  font-family: var(--font-syne), sans-serif;
+}
+
+#canvas-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* Custom Scrollbar Hide */
+::-webkit-scrollbar {
+  width: 0px;
+  background: transparent;
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.text-gradient {
+  background: linear-gradient(to right, #fff, #888);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.magnetic-btn {
+  transition: transform 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* Stroke Text Utility */
+.stroke-text {
+  -webkit-text-stroke: 2px rgba(255, 255, 255, 0.5);
+  color: transparent;
+}
