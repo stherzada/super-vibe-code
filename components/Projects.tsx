@@ -1,18 +1,16 @@
-import { db } from '@/lib/db';
 import ProjectCard from './ProjectCard';
-import { Project } from '@prisma/client';
 
-async function getProjects(): Promise<Project[]> {
-    try {
-        const projects = await db.project.findMany({
-            where: { published: true },
-            orderBy: { order: 'asc' },
-        });
-        return projects;
-    } catch (error) {
-        console.error('Failed to fetch projects:', error);
-        return [];
-    }
+async function getProjects() {
+    // try {
+    //     const projects = await db.project.findMany({
+    //         where: { published: true },
+    //         orderBy: { order: 'asc' },
+    //     });
+    //     return projects;
+    // } catch (error) {
+    //     console.error('Failed to fetch projects:', error);
+    //     return [];
+    // }
 }
 
 export default async function Projects() {
@@ -29,44 +27,38 @@ export default async function Projects() {
                 </h2>
 
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 md:gap-16 lg:gap-24">
-                    {projects.length > 0 ? (
-                        projects.map((project, index) => (
-                            <ProjectCard key={project.id} project={project} index={index} />
-                        ))
-                    ) : (
-                        <>
-                            <ProjectCard
-                                project={{
-                                    id: 'dummy',
-                                    title: 'Coming Soon',
-                                    category: 'Development',
-                                    image: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop',
-                                    link: '#',
-                                }}
-                                index={0}
-                            />
-                            <ProjectCard
-                                project={{
-                                    id: 'dummy',
-                                    title: 'Coming Soon',
-                                    category: 'Development',
-                                    image: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop',
-                                    link: '#',
-                                }}
-                                index={1}
-                            />
-                            <ProjectCard
-                                project={{
-                                    id: 'dummy',
-                                    title: 'Coming Soon',
-                                    category: 'Development',
-                                    image: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop',
-                                    link: '#',
-                                }}
-                                index={2}
-                            />
-                        </>
-                    )}
+                    <>
+                        <ProjectCard
+                            project={{
+                                id: 'dummy',
+                                title: 'Coming Soon',
+                                category: 'Development',
+                                image: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop',
+                                link: '#',
+                            }}
+                            index={0}
+                        />
+                        <ProjectCard
+                            project={{
+                                id: 'dummy',
+                                title: 'Coming Soon',
+                                category: 'Development',
+                                image: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop',
+                                link: '#',
+                            }}
+                            index={1}
+                        />
+                        <ProjectCard
+                            project={{
+                                id: 'dummy',
+                                title: 'Coming Soon',
+                                category: 'Development',
+                                image: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop',
+                                link: '#',
+                            }}
+                            index={2}
+                        />
+                    </>
                 </div>
             </div>
         </section >
