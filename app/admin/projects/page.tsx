@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { Plus, Pencil, Trash2, ExternalLink, GripVertical } from 'lucide-react';
+import { Plus, Pencil, Trash2 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 
 interface Project {
@@ -118,8 +118,8 @@ export default function ProjectsPage() {
                                         <td className="px-6 py-4">
                                             <span
                                                 className={`px-2 py-1 text-xs font-medium rounded-full ${project.published
-                                                        ? 'bg-green-500/10 text-green-400'
-                                                        : 'bg-yellow-500/10 text-yellow-400'
+                                                    ? 'bg-green-500/10 text-green-400'
+                                                    : 'bg-yellow-500/10 text-yellow-400'
                                                     }`}
                                             >
                                                 {project.published ? 'Published' : 'Draft'}

@@ -1,7 +1,8 @@
 import { db } from '@/lib/db';
 import ProjectCard from './ProjectCard';
+import { Project } from '@prisma/client';
 
-async function getProjects() {
+async function getProjects(): Promise<Project[]> {
     try {
         const projects = await db.project.findMany({
             where: { published: true },
