@@ -2,6 +2,15 @@ import { db } from '@/lib/db';
 import { FolderKanban, MessageSquare, Eye } from 'lucide-react';
 import Link from 'next/link';
 
+interface ContactMessage {
+    id: string;
+    name: string;
+    email: string;
+    message: string;
+    read: boolean;
+    createdAt: Date;
+}
+
 async function getStats() {
     const [projectsCount, messagesCount, unreadMessagesCount] = await Promise.all([
         db.project.count(),
@@ -34,7 +43,6 @@ export default async function AdminDashboard() {
                 <p className="text-gray-400 mt-2">Overview of your portfolio activity</p>
             </div>
 
-            {/* Stats Grid */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div className="bg-gray-800 p-6 rounded-xl border border-gray-700">
                     <div className="flex items-center justify-between mb-4">
@@ -76,9 +84,7 @@ export default async function AdminDashboard() {
                 </div>
             </div>
 
-            {/* Recent Activity */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                {/* Recent Messages */}
                 <div className="bg-gray-800 rounded-xl border border-gray-700 overflow-hidden">
                     <div className="p-6 border-b border-gray-700 flex items-center justify-between">
                         <h3 className="font-semibold text-white">Recent Messages</h3>
@@ -95,7 +101,7 @@ export default async function AdminDashboard() {
                                 No messages yet
                             </div>
                         ) : (
-                            recentMessages.map((msg) => (
+                            recentMessages.map((msg: ContactMessage) => (
                                 <div key={msg.id} className="p-4 hover:bg-gray-700/50 transition-colors">
                                     <div className="flex items-center justify-between mb-1">
                                         <span className="font-medium text-white">{msg.name}</span>
@@ -110,7 +116,6 @@ export default async function AdminDashboard() {
                     </div>
                 </div>
 
-                {/* Quick Actions */}
                 <div className="bg-gray-800 rounded-xl border border-gray-700 overflow-hidden">
                     <div className="p-6 border-b border-gray-700">
                         <h3 className="font-semibold text-white">Quick Actions</h3>
