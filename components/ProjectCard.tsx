@@ -14,8 +14,12 @@ interface Project {
     image: string;
     link?: string | null;
 }
+interface ProjectCardProps {
+    project: Project;
+    index: number;
+}
 
-export default function ProjectCard({ project, index }: { project: Project; index: number }) {
+export default function ProjectCard({ project, index }: ProjectCardProps) {
     const cardRef = useRef<HTMLDivElement>(null);
     const imageRef = useRef<HTMLImageElement>(null);
 

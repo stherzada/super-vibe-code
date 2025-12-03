@@ -30,11 +30,9 @@ export default function Scene3D() {
         renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
         mountNode.appendChild(renderer.domElement);
 
-        // Adjust particle count based on screen size for better performance
         const isMobile = window.innerWidth < 768;
         const isTablet = window.innerWidth >= 768 && window.innerWidth < 1024;
 
-        // Particles - reduced count on mobile/tablet
         const particlesGeometry = new THREE.BufferGeometry();
         const particlesCount = isMobile ? 800 : isTablet ? 1200 : 2000;
         const posArray = new Float32Array(particlesCount * 3);
@@ -56,7 +54,6 @@ export default function Scene3D() {
         const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
         scene.add(particlesMesh);
 
-        // Main Abstract Shape - simpler geometry on mobile
         const geometry = new THREE.IcosahedronGeometry(1.5, isMobile ? 0 : 0);
         const material = new THREE.MeshStandardMaterial({
             color: 0x1a1a1a,
@@ -67,7 +64,6 @@ export default function Scene3D() {
         const mainShape = new THREE.Mesh(geometry, material);
         scene.add(mainShape);
 
-        // Inner Glow Shape
         const innerGeo = new THREE.IcosahedronGeometry(1.2, isMobile ? 0 : 1);
         const innerMat = new THREE.MeshBasicMaterial({
             color: 0x4f46e5,
@@ -78,7 +74,6 @@ export default function Scene3D() {
         const innerShape = new THREE.Mesh(innerGeo, innerMat);
         scene.add(innerShape);
 
-        // Lights
         const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
         scene.add(ambientLight);
 
@@ -90,7 +85,6 @@ export default function Scene3D() {
         pointLight2.position.set(-2, -3, 4);
         scene.add(pointLight2);
 
-        // Mouse Interaction
         let mouseX = 0;
         let mouseY = 0;
 
@@ -100,7 +94,6 @@ export default function Scene3D() {
         };
         window.addEventListener('mousemove', handleMouseMove);
 
-        // Animation Loop
         const clock = new THREE.Clock();
         let animationId: number;
 
@@ -109,7 +102,6 @@ export default function Scene3D() {
             mainShape.rotation.x += 0.002;
             innerShape.rotation.y -= 0.005;
 
-            // Mouse parallax - reduced effect on mobile
             const parallaxStrength = isMobile ? 0.3 : 0.5;
             particlesMesh.rotation.y = -mouseX * parallaxStrength;
             particlesMesh.rotation.x = -mouseY * parallaxStrength;
@@ -122,7 +114,6 @@ export default function Scene3D() {
         };
         animate();
 
-        // Scroll Interaction via GSAP
         const ctx = gsap.context(() => {
             gsap.to(mainShape.rotation, {
                 scrollTrigger: {
@@ -146,7 +137,6 @@ export default function Scene3D() {
             });
         });
 
-        // Resize Handle
         const handleResize = () => {
             camera.aspect = window.innerWidth / window.innerHeight;
             camera.updateProjectionMatrix();
@@ -154,7 +144,6 @@ export default function Scene3D() {
         };
         window.addEventListener('resize', handleResize);
 
-        // Cleanup
         return () => {
             window.removeEventListener('resize', handleResize);
             window.removeEventListener('mousemove', handleMouseMove);

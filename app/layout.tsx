@@ -19,6 +19,8 @@ export const metadata: Metadata = {
   description: "Crafting Digital Experiences",
 };
 
+import Providers from "@/components/Providers";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -29,7 +31,7 @@ export default function RootLayout({
       <body
         className={`${spaceGrotesk.variable} ${syne.variable} antialiased`}
       >
-        {children}
+        <Providers>{children}</Providers>
       </body>
     </html>
   );

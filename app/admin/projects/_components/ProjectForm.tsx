@@ -14,8 +14,8 @@ const projectSchema = z.object({
     description: z.string().optional(),
     image: z.string().url('Must be a valid URL'),
     link: z.string().url('Must be a valid URL').optional().or(z.literal('')),
-    order: z.number().int().default(0),
-    published: z.boolean().default(true),
+    order: z.number().int(),
+    published: z.boolean(),
 });
 
 type ProjectFormData = z.infer<typeof projectSchema>;

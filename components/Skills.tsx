@@ -12,15 +12,33 @@ export default function Skills() {
 
     useLayoutEffect(() => {
         const ctx = gsap.context(() => {
-            gsap.to(sliderRef.current, {
-                scrollTrigger: {
-                    trigger: triggerRef.current,
-                    start: 'top bottom',
-                    end: 'bottom top',
-                    scrub: 1,
+            const tl = gsap.to(sliderRef.current, {
+                xPercent: -50,
+                repeat: -1,
+                duration: 20,
+                ease: 'linear',
+            });
+
+            ScrollTrigger.create({
+                trigger: triggerRef.current,
+                start: 'top bottom',
+                end: 'bottom top',
+                onUpdate: (self) => {
+                    const scrollSpeed = Math.abs(self.getVelocity() / 100);
+                    const newTimeScale = 1 + scrollSpeed;
+
+                    gsap.to(tl, {
+                        timeScale: self.direction === 1 ? newTimeScale : -newTimeScale,
+                        duration: 0.1,
+                        overwrite: true,
+                    });
+
+                    gsap.to(tl, {
+                        timeScale: self.direction === 1 ? 1 : -1,
+                        duration: 0.5,
+                        delay: 0.1,
+                    });
                 },
-                xPercent: -20,
-                ease: 'none',
             });
         });
         return () => ctx.revert();
@@ -48,14 +66,13 @@ export default function Skills() {
                     My Stack
                 </p>
                 <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-light leading-tight max-w-4xl mx-auto px-4">
-                    Bridging the gap between{' '}
-                    <span className="text-white font-bold">design</span> and{' '}
+                    Bridging the gap between
+                    <span className="text-white font-bold">design</span> and
                     <span className="text-white font-bold">engineering</span> with
                     pixel-perfect precision.
                 </h2>
             </div>
 
-            {/* Infinite Text Marquee */}
             <div
                 ref={sliderRef}
                 className="flex whitespace-nowrap text-[15vw] sm:text-[12vw] md:text-[10vw] lg:text-[8vw] font-bold leading-none opacity-20 select-none"

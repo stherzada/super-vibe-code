@@ -1,22 +1,19 @@
-import { Resend } from 'resend';
-import { NextRequest, NextResponse } from 'next/server';
-import { db } from '@/lib/db';
-
-const resend = new Resend(process.env.RESEND_API_KEY);
+import { Resend } from "resend";
+import { NextRequest, NextResponse } from "next/server";
+import { db } from "@/lib/db";
 
 export async function POST(req: NextRequest) {
   try {
+    const resend = new Resend(process.env.RESEND_API_KEY);
     const { name, email, message } = await req.json();
 
-    // Validate input
     if (!name || !email || !message) {
       return NextResponse.json(
-        { error: 'Missing required fields' },
+        { error: "Missing required fields" },
         { status: 400 }
       );
     }
 
-    // Save to database
     await db.contactMessage.create({
       data: {
         name,
@@ -25,10 +22,9 @@ export async function POST(req: NextRequest) {
       },
     });
 
-    // Send email using Resend
     const data = await resend.emails.send({
-      from: 'Portfolio Contact <onboarding@resend.dev>', // Use your verified domain
-      to: process.env.CONTACT_EMAIL || 'your-email@example.com',
+      from: "Portfolio Contact <onboarding@resend.dev>",
+      to: process.env.CONTACT_EMAIL || "your-email@example.com",
       replyTo: email,
       subject: `New Contact Form Submission from ${name} `,
       html: `
@@ -93,7 +89,10 @@ export async function POST(req: NextRequest) {
                     </div>
                     < div class="field" >
                       <div class="label" > Message: </div>
-                        < div class="value" > ${message.replace(/\n/g, '<br>')} </div>
+                        < div class="value" > ${message.replace(
+                          /\n/g,
+                          "<br>"
+                        )} </div>
                           </div>
                           </div>
                           < div class="footer" >
@@ -106,9 +105,9 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json({ success: true, data }, { status: 200 });
   } catch (error) {
-    console.error('Error sending email:', error);
+    console.error("Error sending email:", error);
     return NextResponse.json(
-      { error: 'Failed to send email' },
+      { error: "Failed to send email" },
       { status: 500 }
     );
   }
