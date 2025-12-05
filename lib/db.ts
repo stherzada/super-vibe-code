@@ -1,10 +1,24 @@
-import { PrismaClient } from '@prisma/client';
+// Mock DB implementation to replace Prisma
+const globalForPrisma = global as unknown as { prisma: any };
 
-const prisma = new PrismaClient();
+class MockClient {
+  project = {
+    findMany: async () => [],
+    create: async (args: any) => ({ id: "mock-id", ...args.data }),
+    update: async (args: any) => ({ id: args.where.id, ...args.data }),
+    delete: async (args: any) => ({ id: args.where.id }),
+    findUnique: async () => null,
+    count: async () => 0,
+  };
+  contactMessage = {
+    findMany: async () => [],
+    create: async (args: any) => ({ id: "mock-id", ...args.data }),
+    update: async (args: any) => ({ id: args.where.id, ...args.data }),
+    delete: async (args: any) => ({ id: args.where.id }),
+    count: async () => 0,
+  };
+}
 
-// Use a global variable to prevent multiple instances in development
-const globalForPrisma = global as unknown as { prisma: PrismaClient };
+export const db = globalForPrisma.prisma || new MockClient();
 
-export const db = globalForPrisma.prisma || prisma;
-
-if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = db;
+if (process.env.NODE_ENV !== "production") globalForPrisma.prisma = db;
